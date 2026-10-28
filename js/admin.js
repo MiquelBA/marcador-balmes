@@ -1,8 +1,8 @@
 import {
   sb, teamSlug, loadTeam, syncServerClock, serverNow, remainingMs, fmtClock, ordinal, fmtDate, esc, sides,
   unlockAudio, playSound, keepAwake, goFullscreen, toggleFullscreen, canFullscreen, setupFullscreenButton, toast, outcome,
-} from './common.js?v=7';
-import { showFinalEffect } from './effects.js?v=7';
+} from './common.js?v=8';
+import { showFinalEffect } from './effects.js?v=8';
 
 const $ = (id) => document.getElementById(id);
 const PIN_KEY = `mb_pin_${teamSlug}`;
@@ -65,11 +65,13 @@ function logout() { pin = null; store.del(); match = null; show('pinView'); }
 $('logoutBtn').addEventListener('click', logout);
 
 /* ---------------- Inici ---------------- */
+const delAttrs = (m) => `data-del="${m.id}" data-name="${esc(m.opponent)}" data-date="${esc(fmtDate(m.match_date))}" data-score="Balmes ${m.score_us} – ${m.score_them}"`;
+
 async function goHome() {
   match = null;
   show('homeView');
   const { data } = await sb.from('matches').select('*').eq('team_id', team.id)
-    .order('created_at', { ascending: false }).limit(15);
+    .order('match_date', { ascending: false }).order('created_at', { ascending: false }).limit(500);
   const list = data || [];
   const live = list.find((m) => m.status === 'live');
   $('liveCard').innerHTML = live ? `
@@ -78,6 +80,7 @@ async function goHome() {
       <div class="mc-teams" style="font-size:1.2rem;margin:.4em 0">Balmes <span style="color:var(--green-2)">${live.score_us}</span> – ${live.score_them} ${esc(live.opponent)}</div>
       <div class="mc-sub">${ordinal(live.current_period)} quart · ${fmtDate(live.match_date)}${live.location ? ' · ' + esc(live.location) : ''}</div>
       <button class="btn block" style="margin-top:12px" data-open="${live.id}">▶ Continuar el partit</button>
+      <div class="mc-actions" style="justify-content:flex-end"><button class="btn danger" ${delAttrs(live)}>🗑 Esborrar</button></div>
     </div>` : '';
   $('recentList').innerHTML = list.filter((m) => m !== live).map((m) => {
     const r = outcome(m);
@@ -88,7 +91,7 @@ async function goHome() {
       <div class="mc-score"><span class="u">${m.score_us}</span>-${m.score_them}</div></div>
       <div class="mc-body"><div class="mc-actions">
         <button class="btn secondary" data-reopen="${m.id}">↺ Reobrir</button>
-        <button class="btn danger" data-del="${m.id}" data-name="${esc(m.opponent)}">🗑 Esborrar</button>
+        <button class="btn danger" ${delAttrs(m)}>🗑 Esborrar</button>
       </div></div></div>`;
   }).join('') || '<p style="color:var(--muted)">Encara no hi ha partits.</p>';
 }
@@ -104,9 +107,14 @@ $('homeView').addEventListener('click', async (e) => {
     openMatch(reopen.dataset.reopen);
   }
   if (del) {
-    if (!await confirmModal('Esborrar el partit?', `Contra ${del.dataset.name}. Aquesta acció no es pot desfer.`, 'Esborrar', true)) return;
-    await rpc('admin_delete_match', { p_match_id: del.dataset.del });
-    toast('Partit esborrat'); goHome();
+    const d = del.dataset;
+    if (!await confirmModal('Estàs segur que vols esborrar aquest partit?',
+      `<b>${esc(d.name)}</b> · ${esc(d.date)} · ${esc(d.score)}<br><br>Es perdran totes les dades associades al partit (resultat, parcials per quart…). Desapareixerà de l'historial i del marcador dels pares, i <b>no es podrà recuperar</b>.`,
+      'Sí, esborrar', true)) return;
+    try {
+      await rpc('admin_delete_match', { p_match_id: d.del });
+      toast('Partit esborrat 🗑'); goHome();
+    } catch (err) { /* el missatge d'error ja s'ha mostrat */ }
   }
 });
 $('newMatchBtn').addEventListener('click', () => matchForm());
