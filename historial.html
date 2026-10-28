@@ -1,0 +1,35 @@
+<!doctype html>
+<html lang="ca">
+<head>
+  <meta charset="utf-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1, viewport-fit=cover">
+  <meta name="theme-color" content="#060645">
+  <title>Historial · Marcador Balmes</title>
+  <link rel="icon" href="icons/icon-192.png">
+  <link rel="apple-touch-icon" href="icons/icon-192.png">
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+  <link href="https://fonts.googleapis.com/css2?family=Montserrat:wght@600;700;800;900&family=Open+Sans:wght@400;600;700&display=swap" rel="stylesheet">
+  <link rel="stylesheet" href="css/style.css">
+</head>
+<body class="court-bg">
+  <div class="page">
+    <header class="page-head">
+      <a href="index.html" class="icon-btn" aria-label="Tornar al marcador" style="width:40px;height:40px;font-size:1.1rem">←</a>
+      <h1>Historial de partits</h1>
+      <span class="logo-white"><img src="https://balmes.escolapia.cat/wp-content/uploads/logo-caixa-EP-Balmes-1.png" alt="Escola Pia Balmes" onerror="this.parentNode.style.display='none'"></span>
+    </header>
+    <div class="wrap">
+      <label class="field" id="seasonWrap" style="margin-top:4px">
+        <span>Temporada</span>
+        <select class="input" id="season"></select>
+      </label>
+      <div id="stats" class="stats"></div>
+      <div id="live"></div>
+      <div class="section-title">Partits jugats</div>
+      <div id="list"><p style="color:var(--muted)">Carregant…</p></div>
+    </div>
+  </div>
+  <script type="module" src="js/history.js"></script>
+</body>
+</html>

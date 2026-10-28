@@ -1,0 +1,90 @@
+<!doctype html>
+<html lang="ca">
+<head>
+  <meta charset="utf-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1, viewport-fit=cover">
+  <meta name="theme-color" content="#060645">
+  <meta name="apple-mobile-web-app-capable" content="yes">
+  <meta name="mobile-web-app-capable" content="yes">
+  <meta name="apple-mobile-web-app-status-bar-style" content="black-translucent">
+  <meta name="apple-mobile-web-app-title" content="Marcador">
+  <title>Marcador Balmes</title>
+  <meta name="description" content="Marcador en directe de l'equip de bàsquet de l'Escola Pia Balmes">
+  <link rel="manifest" href="manifest.webmanifest">
+  <link rel="icon" href="icons/icon-192.png">
+  <link rel="apple-touch-icon" href="icons/icon-192.png">
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+  <link href="https://fonts.googleapis.com/css2?family=Montserrat:wght@600;700;800;900&family=Open+Sans:wght@400;600;700&display=swap" rel="stylesheet">
+  <link rel="stylesheet" href="css/style.css">
+  <script src="https://cdnjs.cloudflare.com/ajax/libs/canvas-confetti/1.9.3/confetti.browser.min.js" defer></script>
+</head>
+<body class="court-bg">
+
+  <!-- Marcador -->
+  <main id="board" class="board hidden" aria-live="polite">
+    <header class="board-top">
+      <div class="brand">
+        <img class="emblem" src="https://balmes.escolapia.cat/wp-content/uploads/cropped-fav-270x270.png" alt="" onerror="this.style.display='none'">
+        <div class="brand-text"><b>Escola Pia Balmes</b><span id="liveLabel" class="live-dot">EN DIRECTE</span></div>
+      </div>
+      <div class="clock-wrap">
+        <div id="clock" class="clock-box">10:00</div>
+        <span id="clockLabel" class="clock-label">&nbsp;</span>
+      </div>
+      <div class="period-box">
+        <span id="period" class="period">1r</span>
+        <small>QUART</small>
+      </div>
+    </header>
+
+    <section class="teams">
+      <div id="teamL" class="team">
+        <div class="team-name" data-name>—</div>
+        <div class="score" data-score>0</div>
+        <div class="team-tag" data-tag>Local</div>
+      </div>
+      <div class="vs">×</div>
+      <div id="teamR" class="team">
+        <div class="team-name" data-name>—</div>
+        <div class="score" data-score>0</div>
+        <div class="team-tag" data-tag>Visitant</div>
+      </div>
+    </section>
+
+    <footer class="board-bottom">
+      <div id="quarters" class="quarters"></div>
+      <div id="meta" class="meta"></div>
+      <div class="board-actions">
+        <button id="soundBtn" class="icon-btn" aria-label="Activar el so" title="So">🔇</button>
+        <button id="fsBtn" class="icon-btn" aria-label="Pantalla completa" title="Pantalla completa">⛶</button>
+        <a class="icon-btn" href="historial.html" aria-label="Historial de partits" title="Historial">📋</a>
+      </div>
+    </footer>
+  </main>
+
+  <!-- Sense partit -->
+  <section id="empty" class="empty hidden">
+    <div>
+      <div class="start-card"><div class="logo-white"><img src="https://balmes.escolapia.cat/wp-content/uploads/logo-caixa-EP-Balmes-1.png" alt="Escola Pia Balmes" onerror="this.parentNode.style.display='none'"></div></div>
+      <h2>Ara mateix no hi ha cap partit en joc 🏀</h2>
+      <p>Quan comenci el partit, el marcador apareixerà aquí automàticament.</p>
+      <div id="lastMatch"></div>
+      <p><a class="btn secondary" href="historial.html">📋 Veure l'historial</a></p>
+    </div>
+  </section>
+
+  <!-- Capa d'inici: cal un toc per poder reproduir sons -->
+  <div id="start" class="start-overlay">
+    <div class="start-card">
+      <div class="logo-white"><img src="https://balmes.escolapia.cat/wp-content/uploads/logo-caixa-EP-Balmes-1.png" alt="Escola Pia Balmes" onerror="this.parentNode.style.display='none'"></div>
+      <h1>Marcador en directe</h1>
+      <p>Posa el mòbil en horitzontal 📱↔️<br>Sentiràs el xiulet i la botzina quan soni a la pista.</p>
+      <button id="startSound" class="btn block">🔊 Entrar amb so</button>
+      <p style="margin-top:14px"><button id="startMute" class="btn secondary block">Entrar sense so</button></p>
+    </div>
+  </div>
+
+  <script type="module" src="js/viewer.js"></script>
+</body>
+</html>

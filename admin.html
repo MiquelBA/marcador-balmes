@@ -1,0 +1,119 @@
+<!doctype html>
+<html lang="ca">
+<head>
+  <meta charset="utf-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1, viewport-fit=cover, user-scalable=no">
+  <meta name="theme-color" content="#060645">
+  <meta name="apple-mobile-web-app-capable" content="yes">
+  <meta name="mobile-web-app-capable" content="yes">
+  <meta name="apple-mobile-web-app-status-bar-style" content="black-translucent">
+  <meta name="robots" content="noindex">
+  <title>Marcador Admin</title>
+  <link rel="manifest" href="manifest-admin.webmanifest">
+  <link rel="icon" href="icons/icon-192.png">
+  <link rel="apple-touch-icon" href="icons/icon-192.png">
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+  <link href="https://fonts.googleapis.com/css2?family=Montserrat:wght@600;700;800;900&family=Open+Sans:wght@400;600;700&display=swap" rel="stylesheet">
+  <link rel="stylesheet" href="css/style.css">
+  <script src="https://cdnjs.cloudflare.com/ajax/libs/canvas-confetti/1.9.3/confetti.browser.min.js" defer></script>
+</head>
+<body class="court-bg">
+
+  <!-- PIN -->
+  <section id="pinView" class="pin-screen hidden">
+    <div>
+      <div class="start-card"><div class="logo-white"><img src="https://balmes.escolapia.cat/wp-content/uploads/logo-caixa-EP-Balmes-1.png" alt="Escola Pia Balmes" onerror="this.parentNode.style.display='none'"></div></div>
+      <h2 style="margin:.2em 0">Administració del marcador</h2>
+      <div style="color:var(--muted);font-family:var(--font-body)">Introdueix el PIN</div>
+      <div id="pinDots" class="pin-dots"><i></i><i></i><i></i><i></i></div>
+      <div class="pinpad" id="pinpad">
+        <button>1</button><button>2</button><button>3</button>
+        <button>4</button><button>5</button><button>6</button>
+        <button>7</button><button>8</button><button>9</button>
+        <span></span><button>0</button><button data-del aria-label="Esborrar">⌫</button>
+      </div>
+      <p style="margin-top:24px"><a href="index.html">← Tornar al marcador</a></p>
+    </div>
+  </section>
+
+  <!-- Inici admin -->
+  <section id="homeView" class="page hidden">
+    <header class="page-head">
+      <span class="logo-white"><img src="https://balmes.escolapia.cat/wp-content/uploads/logo-caixa-EP-Balmes-1.png" alt="Escola Pia Balmes" onerror="this.parentNode.style.display='none'"></span>
+      <h1>Administració</h1>
+      <button id="logoutBtn" class="btn secondary" style="padding:.5em .9em;font-size:.85rem">Sortir</button>
+    </header>
+    <div class="wrap">
+      <div id="liveCard"></div>
+      <button id="newMatchBtn" class="btn block" style="margin-top:12px">＋ Nou partit</button>
+      <div class="section-title">Partits recents</div>
+      <div id="recentList"></div>
+      <p style="text-align:center;margin-top:24px;display:flex;gap:10px;justify-content:center;flex-wrap:wrap">
+        <a class="btn secondary" href="index.html">👀 Veure el marcador públic</a>
+        <a class="btn secondary" href="historial.html">📋 Historial</a>
+      </p>
+    </div>
+  </section>
+
+  <!-- Control del partit -->
+  <main id="ctrlView" class="board ctrl hidden">
+    <header class="board-top">
+      <div class="brand" style="gap:8px">
+        <button id="menuBtn" class="icon-btn" aria-label="Menú" title="Menú">☰</button>
+        <button id="fsBtn" class="icon-btn" aria-label="Pantalla completa" title="Pantalla completa">⛶</button>
+      </div>
+      <div class="clock-ctrl">
+        <button id="playBtn" class="play-btn" aria-label="Engegar el rellotge"></button>
+        <div>
+          <div id="clock" class="clock-box" role="button" tabindex="0" aria-label="Canviar el temps">10:00</div>
+          <span id="clockLabel" class="clock-label">toca per editar</span>
+        </div>
+      </div>
+      <div class="period-ctrl">
+        <button class="arrow" id="prevPeriod" aria-label="Quart anterior">◀</button>
+        <div>
+          <div id="period" class="period">1r</div>
+          <span class="clock-label">QUART</span>
+        </div>
+        <button class="arrow" id="nextPeriod" aria-label="Quart següent">▶</button>
+      </div>
+    </header>
+
+    <section class="teams">
+      <div id="teamL" class="team">
+        <div class="team-name" data-name>—</div>
+        <div class="score" data-score>0</div>
+        <div class="pts" data-pts></div>
+      </div>
+      <div class="vs">×</div>
+      <div id="teamR" class="team">
+        <div class="team-name" data-name>—</div>
+        <div class="score" data-score>0</div>
+        <div class="pts" data-pts></div>
+      </div>
+    </section>
+
+    <footer class="board-bottom">
+      <div style="display:flex;gap:8px">
+        <button id="editBtn" class="icon-btn" aria-label="Editar el partit" title="Editar el partit">⚙️</button>
+        <button id="finishBtn" class="icon-btn finish-btn" aria-label="Finalitzar el partit" title="Finalitzar el partit">✔</button>
+      </div>
+      <div class="rotate-hint">📱↔️ Gira el mòbil per veure-ho millor</div>
+      <div class="sound-btns">
+        <button id="whistleBtn" aria-label="Xiulet" title="Xiulet (sona a tots els mòbils)">
+          <svg viewBox="0 0 24 24" width="55%" height="55%" fill="currentColor" aria-hidden="true"><path d="M8.5 9H21a1 1 0 0 1 1 1v2.2a1 1 0 0 1-.6.9l-5 2.2A6.5 6.5 0 1 1 8.5 9Zm0 3a3.5 3.5 0 1 0 0 7 3.5 3.5 0 0 0 0-7ZM13 4h2v3h-2zM9.2 5.1l1.4-1.4 2 2-1.4 1.4zM16.4 5.7l2-2 1.4 1.4-2 2z"/></svg>
+        </button>
+        <button id="hornBtn" aria-label="Botzina" title="Botzina (sona a tots els mòbils)">
+          <svg viewBox="0 0 24 24" width="55%" height="55%" fill="currentColor" aria-hidden="true"><path d="M3 10v4a1 1 0 0 0 1 1h2l5 4V5L6 9H4a1 1 0 0 0-1 1Zm13.5 2a4.5 4.5 0 0 0-2.5-4v8a4.5 4.5 0 0 0 2.5-4ZM14 3.2v2.1a7 7 0 0 1 0 13.4v2.1a9 9 0 0 0 0-17.6Z"/></svg>
+        </button>
+      </div>
+    </footer>
+  </main>
+
+  <!-- Modal genèric -->
+  <div id="modal" class="modal hidden" role="dialog" aria-modal="true"><div class="modal-card" id="modalCard"></div></div>
+
+  <script type="module" src="js/admin.js"></script>
+</body>
+</html>
