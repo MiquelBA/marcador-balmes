@@ -371,3 +371,53 @@ a { color: var(--green-2); }
 .rotate-overlay h2 { font-size: 1.45rem; margin: 0 0 .4em; }
 .rotate-overlay p { color: var(--muted); font-family: var(--font-body); margin: 0 0 1.6em; }
 .rotate-overlay .skip { color: var(--muted); text-decoration: underline; font-size: .9rem; font-family: var(--font-body); padding: 8px; }
+
+/* ---------- Pantalla dels pares: ajustos per a mòbils petits ---------- */
+.board .teams { overflow: hidden; }
+.board .team { justify-content: center; gap: .6vh; }
+.board .team-tag { font-size: clamp(.5rem, 1.9vh, .75rem); letter-spacing: .22em; }
+.board-bottom {
+  display: grid; grid-template-columns: 1fr auto 1fr; align-items: center; gap: 2vw;
+  padding-top: 1.2vh; border-top: 1px solid var(--line);
+}
+.board-bottom .quarters { justify-self: start; gap: .35em; }
+.board-bottom .board-actions { justify-self: end; gap: .45em; }
+.quarters .q { font-size: clamp(.55rem, 2.2vh, .82rem); padding: .15em .5em; border-radius: 7px; }
+.quarters .q b { font-size: .78em; }
+.meta { display: flex; align-items: center; gap: .4em; justify-content: center; color: #dbe1f7; font-weight: 700; font-size: clamp(.7rem, 2.6vh, 1rem); }
+.meta svg { width: 1.05em; height: 1.05em; flex: none; color: var(--green-2); }
+.meta span { overflow: hidden; text-overflow: ellipsis; white-space: nowrap; }
+.pill-btn {
+  display: inline-flex; align-items: center; gap: .45em; height: clamp(32px, 9vh, 44px); padding: 0 .95em;
+  border-radius: 999px; background: var(--panel-2); border: 1.5px solid var(--line); color: #fff; text-decoration: none;
+  font-family: var(--font); font-weight: 700; font-size: clamp(.68rem, 2.5vh, .9rem); white-space: nowrap;
+}
+.pill-btn svg { width: 1.35em; height: 1.35em; flex: none; }
+.pill-btn.icon-only { padding: 0; width: clamp(32px, 9vh, 44px); justify-content: center; }
+.pill-btn.on { background: var(--green); color: var(--navy); border-color: var(--green-2); }
+.pill-btn:active { transform: scale(.95); }
+
+@media (orientation: landscape) {
+  .board { padding-top: max(1.5vh, env(safe-area-inset-top)); padding-bottom: max(1.5vh, env(safe-area-inset-bottom)); gap: 1vh; }
+  .board .clock-box { font-size: clamp(2rem, 15vh, 8rem); }
+  .board .period-box .period { font-size: clamp(1.2rem, 8vh, 3.4rem); }
+  .board .team-name { font-size: clamp(.9rem, 5.2vh, 2.3rem); }
+  .board .score { font-size: min(34vh, 19vw); }
+}
+/* Mòbils baixos (amb la barra del navegador): amagar textos secundaris */
+@media (orientation: landscape) and (max-height: 420px) {
+  .board .clock-label, .board .period-box small { display: none; }
+  .board .pill-btn span { display: none; }
+  .board .pill-btn { padding: 0; width: clamp(32px, 9vh, 44px); justify-content: center; }
+}
+@media (orientation: portrait) {
+  .board-bottom { grid-template-columns: 1fr; justify-items: center; row-gap: 1.2vh; }
+  .board-bottom .quarters, .board-bottom .board-actions { justify-self: center; }
+}
+.start-overlay { z-index: 66; }
+@media (orientation: portrait) {
+  .board .clock-box { font-size: clamp(2.2rem, 15vw, 5rem); }
+  .board .period-box .period { font-size: clamp(1.3rem, 9vw, 2.6rem); }
+  .board .score { font-size: min(13vh, 28vw); }
+  .board .teams { gap: 1.5vh; }
+}

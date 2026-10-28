@@ -1,8 +1,8 @@
 import {
   sb, loadTeam, syncServerClock, serverNow, remainingMs, fmtClock, ordinal, fmtDate, esc, sides,
   unlockAudio, playSound, keepAwake, goFullscreen, toggleFullscreen, canFullscreen, toast, outcome,
-} from './common.js';
-import { showFinalEffect } from './effects.js';
+} from './common.js?v=4';
+import { showFinalEffect } from './effects.js?v=4';
 
 const $ = (id) => document.getElementById(id);
 document.addEventListener('click', (e) => { if (e.target.closest('[data-portrait-ok]')) document.body.classList.add('portrait-ok'); });
@@ -22,6 +22,7 @@ $('soundBtn').addEventListener('click', () => {
 });
 if (!canFullscreen()) $('fsBtn').classList.add('hidden');
 $('fsBtn').addEventListener('click', toggleFullscreen);
+updateSoundBtn();
 
 function enter(withSound) {
   soundOn = withSound;
@@ -32,8 +33,12 @@ function enter(withSound) {
   if (matchMedia('(pointer: coarse)').matches) goFullscreen();
 }
 function updateSoundBtn() {
-  $('soundBtn').textContent = soundOn ? '🔊' : '🔇';
-  $('soundBtn').setAttribute('aria-label', soundOn ? 'Silenciar' : 'Activar el so');
+  const b = $('soundBtn');
+  b.classList.toggle('on', soundOn);
+  b.innerHTML = soundOn
+    ? '<svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M4 9.5v5h3.5L12 19V5L7.5 9.5z" fill="currentColor"/><path d="M15.5 9a4 4 0 0 1 0 6M18.5 6.5a7.5 7.5 0 0 1 0 11"/></svg><span>So</span>'
+    : '<svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M4 9.5v5h3.5L12 19V5L7.5 9.5z" fill="currentColor"/><path d="M16 9.5l5 5M21 9.5l-5 5"/></svg><span>Sense so</span>';
+  b.setAttribute('aria-label', soundOn ? 'Silenciar' : 'Activar el so');
 }
 
 /* ---------- Dades ---------- */
@@ -70,14 +75,12 @@ function render(prev) {
   // Un partit acabat d'un altre dia ja no es mostra com a marcador
   if (!match || (match.status === 'finished' && match.match_date < todayISO())) {
     $('board').classList.add('hidden');
-    $('rotateOverlay').classList.add('hidden');
     $('empty').classList.remove('hidden');
     lastFinishedInfo();
     return;
   }
   $('empty').classList.add('hidden');
   $('board').classList.remove('hidden');
-  $('rotateOverlay').classList.remove('hidden');
 
   const m = match;
   const [L, R] = sides(m, team);
@@ -98,7 +101,7 @@ function render(prev) {
   }).join('');
 
   const where = [m.location, fmtDate(m.match_date, { day: 'numeric', month: 'short' })].filter(Boolean);
-  $('meta').textContent = where.join(' · ');
+  $('meta').innerHTML = `<svg viewBox="0 0 24 24" fill="currentColor" aria-hidden="true"><path d="M12 2a7 7 0 0 0-7 7c0 5 7 13 7 13s7-8 7-13a7 7 0 0 0-7-7Zm0 9.5A2.5 2.5 0 1 1 12 6.5a2.5 2.5 0 0 1 0 5Z"/></svg><span>${esc(where.join(' · '))}</span>`;
   document.title = `${L.short} ${L.score}–${R.score} ${R.short} · Marcador`;
   lastClockText = '';
   tick();

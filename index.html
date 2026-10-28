@@ -16,7 +16,7 @@
   <link rel="preconnect" href="https://fonts.googleapis.com">
   <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
   <link href="https://fonts.googleapis.com/css2?family=Montserrat:wght@600;700;800;900&family=Open+Sans:wght@400;600;700&display=swap" rel="stylesheet">
-  <link rel="stylesheet" href="css/style.css">
+  <link rel="stylesheet" href="css/style.css?v=4">
   <script src="https://cdnjs.cloudflare.com/ajax/libs/canvas-confetti/1.9.3/confetti.browser.min.js" defer></script>
 </head>
 <body class="court-bg">
@@ -40,15 +40,15 @@
 
     <section class="teams">
       <div id="teamL" class="team">
+        <div class="team-tag" data-tag>Local</div>
         <div class="team-name" data-name>—</div>
         <div class="score" data-score>0</div>
-        <div class="team-tag" data-tag>Local</div>
       </div>
       <div class="vs">×</div>
       <div id="teamR" class="team">
+        <div class="team-tag" data-tag>Visitant</div>
         <div class="team-name" data-name>—</div>
         <div class="score" data-score>0</div>
-        <div class="team-tag" data-tag>Visitant</div>
       </div>
     </section>
 
@@ -56,9 +56,14 @@
       <div id="quarters" class="quarters"></div>
       <div id="meta" class="meta"></div>
       <div class="board-actions">
-        <button id="soundBtn" class="icon-btn" aria-label="Activar el so" title="So">🔇</button>
-        <button id="fsBtn" class="icon-btn" aria-label="Pantalla completa" title="Pantalla completa">⛶</button>
-        <a class="icon-btn" href="historial.html" aria-label="Historial de partits" title="Historial">📋</a>
+        <button id="soundBtn" class="pill-btn" aria-label="Activar el so"></button>
+        <button id="fsBtn" class="pill-btn icon-only" aria-label="Pantalla completa" title="Pantalla completa">
+          <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M4 9V4h5M20 9V4h-5M4 15v5h5M20 15v5h-5"/></svg>
+        </button>
+        <a class="pill-btn" href="historial.html" aria-label="Historial de partits">
+          <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.2" stroke-linecap="round" aria-hidden="true"><path d="M9 6h11M9 12h11M9 18h11"/><circle cx="4.5" cy="6" r="1.2" fill="currentColor"/><circle cx="4.5" cy="12" r="1.2" fill="currentColor"/><circle cx="4.5" cy="18" r="1.2" fill="currentColor"/></svg>
+          <span>Historial</span>
+        </a>
       </div>
     </footer>
   </main>
@@ -75,7 +80,7 @@
   </section>
 
   <!-- Capa: gira el mòbil -->
-  <div id="rotateOverlay" class="rotate-overlay hidden" role="dialog" aria-label="Gira el mòbil">
+  <div id="rotateOverlay" class="rotate-overlay" role="dialog" aria-label="Gira el mòbil">
     <div>
       <div class="phone" aria-hidden="true"></div>
       <h2>Posa el mòbil en horitzontal</h2>
@@ -95,6 +100,6 @@
     </div>
   </div>
 
-  <script type="module" src="js/viewer.js"></script>
+  <script type="module" src="js/viewer.js?v=4"></script>
 </body>
 </html>
