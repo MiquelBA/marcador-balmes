@@ -1,4 +1,4 @@
-import { sb, loadTeam, fmtDate, esc, outcome, ordinal, withTeam } from './common.js?v=6';
+import { sb, loadTeam, fmtDate, esc, outcome, ordinal, withTeam } from './common.js?v=7';
 
 const $ = (id) => document.getElementById(id);
 let team, all = [];

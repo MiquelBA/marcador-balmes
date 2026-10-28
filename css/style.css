@@ -435,7 +435,7 @@ a { color: var(--green-2); }
 .board .score { font-size: min(58cqh, 19cqw, 34dvh); }
 @media (orientation: portrait) { .board .score { font-size: min(13dvh, 28vw); } .board .teams { container-type: normal; } }
 .side-body { container-type: size; }
-.side .score { font-size: min(80cqh, 30cqw); }
+.side .score { font-size: min(72cqh, 48cqw); line-height: .85; }
 @media (orientation: portrait) { .side-body { container-type: normal; } .side .score { font-size: min(14dvh, 28vw); } }
 
 /* Ajuda per instal·lar a la pantalla d'inici */
