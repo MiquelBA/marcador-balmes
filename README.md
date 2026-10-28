@@ -3,6 +3,12 @@
 Marcador de bàsquet en directe per a l'equip de l'Escola Pia Balmes.
 Una persona porta el marcador des del mòbil i la resta de famílies el veuen en temps real.
 
+## Adreces
+
+- Marcador (famílies): https://piabalmes.com
+- Administració: https://piabalmes.com/admin
+- Historial: https://piabalmes.com/historial
+
 ## Pàgines
 
 | Pàgina | Per a qui | Què fa |
@@ -32,7 +38,7 @@ insert into public.team_secrets(team_id, pin_hash)
 select id, extensions.crypt('PIN_NOU', extensions.gen_salt('bf')) from t;
 ```
 
-I comparteix els enllaços amb `?equip=infantil-a` (per exemple `index.html?equip=infantil-a`).
+I comparteix els enllaços amb `?equip=infantil-a` (per exemple `https://piabalmes.com/?equip=infantil-a`).
 
 ## Canviar el PIN
 
