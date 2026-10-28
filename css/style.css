@@ -139,10 +139,10 @@ a { color: var(--green-2); }
   .board-top .period-box { grid-area: period; }
   .board-top .clock-wrap { grid-area: clock; justify-self: center; }
   .clock-box { font-size: clamp(3rem, 22vw, 8rem); }
-  .teams { grid-template-columns: 1fr; grid-template-rows: 1fr auto 1fr; gap: 1vh; }
-  .score { font-size: min(20vh, 34vw); }
+  .teams { grid-template-columns: 1fr; grid-template-rows: 1fr 1fr; gap: 2vh; align-content: center; }
+  .score { font-size: min(17vh, 34vw); }
   .team-name { font-size: clamp(1rem, 6vw, 2rem); }
-  .vs { font-size: 6vw; }
+  .team-tag, .vs { display: none; }
   .board-bottom { flex-direction: column; align-items: stretch; }
   .quarters { justify-content: center; flex-wrap: wrap; }
   .meta { text-align: center; white-space: normal; }
@@ -334,7 +334,11 @@ a { color: var(--green-2); }
   .ctrl .rotate-hint { display: flex; align-items: center; gap: .5em; justify-content: center; color: var(--amber); font-family: var(--font); font-weight: 700; font-size: .85rem; }
   .ctrl .score { font-size: min(14vh, 30vw); }
   .ctrl .teams { grid-template-columns: 1fr; grid-template-rows: auto auto; gap: 2vh; }
-  .ctrl .vs { display: none; }
-  .ctrl .board-top { grid-template-columns: 1fr; grid-template-areas: none; justify-items: center; }
+  .ctrl .board-top { grid-template-columns: 1fr; grid-template-areas: none; justify-items: center; row-gap: 1.5vh; }
+  .ctrl .board-top > * { grid-area: auto; }
   .ctrl .period-ctrl { justify-self: center; }
+  .ctrl .clock-box { font-size: clamp(2.4rem, 16vw, 6rem); }
+  .ctrl .board-bottom { flex-direction: row; flex-wrap: wrap; justify-content: space-between; align-items: center; }
+  .ctrl .rotate-hint { display: none !important; }
+  .ctrl .period-ctrl .clock-label { display: none; }
 }
