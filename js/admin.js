@@ -1,8 +1,8 @@
 import {
   sb, teamSlug, loadTeam, syncServerClock, serverNow, remainingMs, fmtClock, ordinal, fmtDate, esc, sides,
   unlockAudio, playSound, keepAwake, goFullscreen, toggleFullscreen, canFullscreen, toast, outcome,
-} from './common.js?v=4';
-import { showFinalEffect } from './effects.js?v=4';
+} from './common.js?v=5';
+import { showFinalEffect } from './effects.js?v=5';
 
 const $ = (id) => document.getElementById(id);
 const PIN_KEY = `mb_pin_${teamSlug}`;

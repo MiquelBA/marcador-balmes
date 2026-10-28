@@ -421,3 +421,10 @@ a { color: var(--green-2); }
   .board .score { font-size: min(13vh, 28vw); }
   .board .teams { gap: 1.5vh; }
 }
+
+/* Categoria de l'equip */
+.team-cat { display: block; font-style: normal; font-family: var(--font); font-weight: 800; color: var(--green-2); text-transform: uppercase; letter-spacing: .08em; font-size: clamp(.6rem, 2.3vh, .85rem); margin: .2em 0 .25em; }
+.team-cat.big { font-size: .9rem; margin: 0 0 1em; }
+.empty .team-cat.big { margin: 0 0 .2em; }
+.page-head h1 .team-cat { font-size: .7rem; margin: .15em 0 0; }
+@media (orientation: landscape) and (max-height: 420px) { .brand-text .team-cat { font-size: .6rem; margin: .1em 0; } }

@@ -1,5 +1,5 @@
 import { createClient } from 'https://cdn.jsdelivr.net/npm/@supabase/supabase-js@2.45.4/+esm';
-import { SUPABASE_URL, SUPABASE_KEY, DEFAULT_TEAM, SCHOOL } from './config.js?v=4';
+import { SUPABASE_URL, SUPABASE_KEY, DEFAULT_TEAM, SCHOOL } from './config.js?v=5';
 
 export const sb = createClient(SUPABASE_URL, SUPABASE_KEY, {
   auth: { persistSession: false },
@@ -12,6 +12,7 @@ export const withTeam = (path) => teamSlug === DEFAULT_TEAM ? path : `${path}?eq
 export async function loadTeam() {
   const { data, error } = await sb.from('teams').select('*').eq('slug', teamSlug).maybeSingle();
   if (error) throw error;
+  if (data?.category) document.querySelectorAll('[data-team-cat]').forEach((el) => { el.textContent = data.category; });
   return data;
 }
 

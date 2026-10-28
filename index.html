@@ -16,7 +16,7 @@
   <link rel="preconnect" href="https://fonts.googleapis.com">
   <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
   <link href="https://fonts.googleapis.com/css2?family=Montserrat:wght@600;700;800;900&family=Open+Sans:wght@400;600;700&display=swap" rel="stylesheet">
-  <link rel="stylesheet" href="css/style.css?v=4">
+  <link rel="stylesheet" href="css/style.css?v=5">
   <script src="https://cdnjs.cloudflare.com/ajax/libs/canvas-confetti/1.9.3/confetti.browser.min.js" defer></script>
 </head>
 <body class="court-bg">
@@ -26,7 +26,7 @@
     <header class="board-top">
       <div class="brand">
         <img class="emblem" src="https://balmes.escolapia.cat/wp-content/uploads/cropped-fav-270x270.png" alt="" onerror="this.style.display='none'">
-        <div class="brand-text"><b>Escola Pia Balmes</b><span id="liveLabel" class="live-dot">EN DIRECTE</span></div>
+        <div class="brand-text"><b>Escola Pia Balmes</b><em class="team-cat" data-team-cat>Bàsquet Prealeví Femení</em><span id="liveLabel" class="live-dot">EN DIRECTE</span></div>
       </div>
       <div class="clock-wrap">
         <div id="clock" class="clock-box">10:00</div>
@@ -72,6 +72,7 @@
   <section id="empty" class="empty hidden">
     <div>
       <div class="start-card"><div class="logo-white"><img src="https://balmes.escolapia.cat/wp-content/uploads/logo-caixa-EP-Balmes-1.png" alt="Escola Pia Balmes" onerror="this.parentNode.style.display='none'"></div></div>
+      <div class="team-cat big" data-team-cat>Bàsquet Prealeví Femení</div>
       <h2>Ara mateix no hi ha cap partit en joc 🏀</h2>
       <p>Quan comenci el partit, el marcador apareixerà aquí automàticament.</p>
       <div id="lastMatch"></div>
@@ -94,12 +95,13 @@
     <div class="start-card">
       <div class="logo-white"><img src="https://balmes.escolapia.cat/wp-content/uploads/logo-caixa-EP-Balmes-1.png" alt="Escola Pia Balmes" onerror="this.parentNode.style.display='none'"></div>
       <h1>Marcador en directe</h1>
+      <div class="team-cat big" data-team-cat>Bàsquet Prealeví Femení</div>
       <p>Posa el mòbil en horitzontal 📱↔️<br>Sentiràs el xiulet i la botzina quan soni a la pista.</p>
       <button id="startSound" class="btn block">🔊 Entrar amb so</button>
       <p style="margin-top:14px"><button id="startMute" class="btn secondary block">Entrar sense so</button></p>
     </div>
   </div>
 
-  <script type="module" src="js/viewer.js?v=4"></script>
+  <script type="module" src="js/viewer.js?v=5"></script>
 </body>
 </html>
