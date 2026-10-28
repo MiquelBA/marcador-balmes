@@ -57,11 +57,20 @@
   </section>
 
   <!-- Control del partit -->
-  <main id="ctrlView" class="board ctrl hidden">
-    <header class="board-top">
-      <div class="brand" style="gap:8px">
+  <main id="ctrlView" class="ctl hidden">
+    <section id="teamL" class="side left">
+      <div class="team-name" data-name>—</div>
+      <div class="side-body">
+        <div class="pts-v" data-pts></div>
+        <div class="score" data-score>0</div>
+      </div>
+    </section>
+
+    <section class="mid">
+      <div class="mid-tools">
         <button id="menuBtn" class="icon-btn" aria-label="Menú" title="Menú">☰</button>
         <button id="fsBtn" class="icon-btn" aria-label="Pantalla completa" title="Pantalla completa">⛶</button>
+        <button id="editBtn" class="icon-btn" aria-label="Editar el partit" title="Editar el partit">⚙️</button>
       </div>
       <div class="clock-ctrl">
         <button id="playBtn" class="play-btn" aria-label="Engegar el rellotge"></button>
@@ -72,44 +81,38 @@
       </div>
       <div class="period-ctrl">
         <button class="arrow" id="prevPeriod" aria-label="Quart anterior">◀</button>
-        <div>
-          <div id="period" class="period">1r</div>
-          <span class="clock-label">QUART</span>
-        </div>
+        <div id="period" class="period">1r</div>
         <button class="arrow" id="nextPeriod" aria-label="Quart següent">▶</button>
       </div>
-    </header>
-
-    <section class="teams">
-      <div id="teamL" class="team">
-        <div class="team-name" data-name>—</div>
-        <div class="score" data-score>0</div>
-        <div class="pts" data-pts></div>
-      </div>
-      <div class="vs">×</div>
-      <div id="teamR" class="team">
-        <div class="team-name" data-name>—</div>
-        <div class="score" data-score>0</div>
-        <div class="pts" data-pts></div>
-      </div>
-    </section>
-
-    <footer class="board-bottom">
-      <div style="display:flex;gap:8px">
-        <button id="editBtn" class="icon-btn" aria-label="Editar el partit" title="Editar el partit">⚙️</button>
-        <button id="finishBtn" class="icon-btn finish-btn" aria-label="Finalitzar el partit" title="Finalitzar el partit">✔</button>
-      </div>
-      <div class="rotate-hint">📱↔️ Gira el mòbil per veure-ho millor</div>
       <div class="sound-btns">
         <button id="whistleBtn" aria-label="Xiulet" title="Xiulet (sona a tots els mòbils)">
-          <svg viewBox="0 0 24 24" width="55%" height="55%" fill="currentColor" aria-hidden="true"><path d="M8.5 9H21a1 1 0 0 1 1 1v2.2a1 1 0 0 1-.6.9l-5 2.2A6.5 6.5 0 1 1 8.5 9Zm0 3a3.5 3.5 0 1 0 0 7 3.5 3.5 0 0 0 0-7ZM13 4h2v3h-2zM9.2 5.1l1.4-1.4 2 2-1.4 1.4zM16.4 5.7l2-2 1.4 1.4-2 2z"/></svg>
+          <svg viewBox="0 0 24 24" fill="currentColor" aria-hidden="true"><path d="M8.5 9H21a1 1 0 0 1 1 1v2.2a1 1 0 0 1-.6.9l-5 2.2A6.5 6.5 0 1 1 8.5 9Zm0 3a3.5 3.5 0 1 0 0 7 3.5 3.5 0 0 0 0-7ZM13 4h2v3h-2zM9.2 5.1l1.4-1.4 2 2-1.4 1.4zM16.4 5.7l2-2 1.4 1.4-2 2z"/></svg>
         </button>
         <button id="hornBtn" aria-label="Botzina" title="Botzina (sona a tots els mòbils)">
-          <svg viewBox="0 0 24 24" width="55%" height="55%" fill="currentColor" aria-hidden="true"><path d="M3 10v4a1 1 0 0 0 1 1h2l5 4V5L6 9H4a1 1 0 0 0-1 1Zm13.5 2a4.5 4.5 0 0 0-2.5-4v8a4.5 4.5 0 0 0 2.5-4ZM14 3.2v2.1a7 7 0 0 1 0 13.4v2.1a9 9 0 0 0 0-17.6Z"/></svg>
+          <svg viewBox="0 0 24 24" fill="currentColor" aria-hidden="true"><path d="M3 10v4a1 1 0 0 0 1 1h2l5 4V5L6 9H4a1 1 0 0 0-1 1Zm13.5 2a4.5 4.5 0 0 0-2.5-4v8a4.5 4.5 0 0 0 2.5-4ZM14 3.2v2.1a7 7 0 0 1 0 13.4v2.1a9 9 0 0 0 0-17.6Z"/></svg>
         </button>
       </div>
-    </footer>
+      <button id="finishBtn" class="finish-pill">🏁 Finalitzar</button>
+    </section>
+
+    <section id="teamR" class="side right">
+      <div class="team-name" data-name>—</div>
+      <div class="side-body">
+        <div class="pts-v" data-pts></div>
+        <div class="score" data-score>0</div>
+      </div>
+    </section>
   </main>
+
+  <!-- Capa: gira el mòbil -->
+  <div id="rotateOverlay" class="rotate-overlay hidden" role="dialog" aria-label="Gira el mòbil">
+    <div>
+      <div class="phone" aria-hidden="true"></div>
+      <h2>Posa el mòbil en horitzontal</h2>
+      <p>Així veuràs bé el marcador i tindràs els botons més grans.</p>
+      <button class="skip" data-portrait-ok>Continuar en vertical</button>
+    </div>
+  </div>
 
   <!-- Modal genèric -->
   <div id="modal" class="modal hidden" role="dialog" aria-modal="true"><div class="modal-card" id="modalCard"></div></div>

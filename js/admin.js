@@ -19,7 +19,12 @@ let pending = 0;       // crides de puntuació en curs
 let channel = null;
 let autoEndKey = null;
 
-const show = (id) => ['pinView', 'homeView', 'ctrlView'].forEach((v) => $(v).classList.toggle('hidden', v !== id));
+const show = (id) => {
+  ['pinView', 'homeView', 'ctrlView'].forEach((v) => $(v).classList.toggle('hidden', v !== id));
+  $('rotateOverlay').classList.toggle('hidden', id !== 'ctrlView');
+};
+document.addEventListener('click', (e) => { if (e.target.closest('[data-portrait-ok]')) document.body.classList.add('portrait-ok'); });
+const buzz = (p) => { try { navigator.vibrate?.(p); } catch (e) { /* no suportat */ } };
 
 /* ---------------- RPC amb PIN ---------------- */
 async function rpc(fn, args) {
@@ -45,7 +50,7 @@ $('pinpad').addEventListener('click', async (e) => {
     if (ok) { pin = entered; store.set(pin); entered = ''; paintDots(); goHome(); }
     else {
       const d = $('pinDots'); d.classList.remove('shake'); void d.offsetWidth; d.classList.add('shake');
-      if (navigator.vibrate) navigator.vibrate(200);
+      buzz(200);
       setTimeout(() => { entered = ''; paintDots(); }, 400);
     }
   }
@@ -200,7 +205,7 @@ async function score(side, d) {
   const key = side === 'us' ? 'score_us' : 'score_them';
   if (match[key] + d < 0) return;
   match = { ...match, [key]: match[key] + d };
-  if (navigator.vibrate) navigator.vibrate(25);
+  buzz(25);
   render();
   pending++;
   try { await rpc('admin_score', { p_match_id: match.id, p_side: side, p_delta: d }); }

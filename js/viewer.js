@@ -5,6 +5,7 @@ import {
 import { showFinalEffect } from './effects.js';
 
 const $ = (id) => document.getElementById(id);
+document.addEventListener('click', (e) => { if (e.target.closest('[data-portrait-ok]')) document.body.classList.add('portrait-ok'); });
 let team = null;
 let match = null;
 let soundOn = false;
@@ -69,12 +70,14 @@ function render(prev) {
   // Un partit acabat d'un altre dia ja no es mostra com a marcador
   if (!match || (match.status === 'finished' && match.match_date < todayISO())) {
     $('board').classList.add('hidden');
+    $('rotateOverlay').classList.add('hidden');
     $('empty').classList.remove('hidden');
     lastFinishedInfo();
     return;
   }
   $('empty').classList.add('hidden');
   $('board').classList.remove('hidden');
+  $('rotateOverlay').classList.remove('hidden');
 
   const m = match;
   const [L, R] = sides(m, team);

@@ -92,7 +92,7 @@ export function playSound(kind) {
   if (!ctx) return;
   if (ctx.state === 'suspended') ctx.resume();
   if (kind === 'whistle') whistle(); else horn();
-  if (navigator.vibrate) navigator.vibrate(kind === 'horn' ? [300, 80, 300] : [120, 60, 120]);
+  try { navigator.vibrate?.(kind === 'horn' ? [300, 80, 300] : [120, 60, 120]); } catch (e) { /* no suportat */ }
 }
 
 function whistle() {
