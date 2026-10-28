@@ -1,5 +1,5 @@
 import { createClient } from 'https://cdn.jsdelivr.net/npm/@supabase/supabase-js@2.45.4/+esm';
-import { SUPABASE_URL, SUPABASE_KEY, DEFAULT_TEAM, SCHOOL } from './config.js?v=5';
+import { SUPABASE_URL, SUPABASE_KEY, DEFAULT_TEAM, SCHOOL } from './config.js?v=6';
 
 export const sb = createClient(SUPABASE_URL, SUPABASE_KEY, {
   auth: { persistSession: false },
@@ -163,6 +163,42 @@ export async function toggleFullscreen() {
   else await goFullscreen();
 }
 export const canFullscreen = () => !!(document.documentElement.requestFullscreen || document.documentElement.webkitRequestFullscreen);
+export const isIOS = () => /iPad|iPhone|iPod/.test(navigator.userAgent) || (navigator.platform === 'MacIntel' && navigator.maxTouchPoints > 1);
+export const isStandalone = () => matchMedia('(display-mode: standalone), (display-mode: fullscreen)').matches || navigator.standalone === true;
+
+/* Botó de pantalla completa: on el navegador ho permet, pantalla completa;
+   a l'iPhone (Apple no ho permet a les webs), instruccions per afegir-la a la pantalla d'inici. */
+export function setupFullscreenButton(btn) {
+  if (!btn) return;
+  if (isStandalone()) { btn.classList.add('hidden'); return; }
+  btn.classList.remove('hidden');
+  btn.addEventListener('click', () => {
+    if (canFullscreen()) toggleFullscreen();
+    else showInstallHelp();
+  });
+}
+
+export function showInstallHelp() {
+  document.querySelector('.a2hs-modal')?.remove();
+  const share = '<span class="ico"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.2" stroke-linecap="round" stroke-linejoin="round"><path d="M12 3v12M7.5 7.5 12 3l4.5 4.5M5 12v7a2 2 0 0 0 2 2h10a2 2 0 0 0 2-2v-7"/></svg></span>';
+  const plus = '<span class="ico"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.2" stroke-linecap="round"><rect x="4" y="4" width="16" height="16" rx="4"/><path d="M12 8.5v7M8.5 12h7"/></svg></span>';
+  const el = document.createElement('div');
+  el.className = 'modal a2hs-modal';
+  el.innerHTML = `<div class="modal-card a2hs">
+    <h3>📱 Veure-ho a pantalla completa</h3>
+    <p style="color:var(--muted);margin-top:0">A l'iPhone, Apple no deixa posar una web a pantalla completa. La solució és afegir el marcador a la pantalla d'inici (només s'ha de fer un cop):</p>
+    <ol>
+      <li>Toca el botó <b>Compartir</b> ${share} del navegador (a dalt o a baix, al costat de l'adreça).</li>
+      <li>Tria <b>Afegeix a la pantalla d'inici</b> ${plus} (si no hi és, baixa una mica la llista).</li>
+      <li>Toca <b>Afegeix</b>.</li>
+      <li>A partir d'ara, obre el marcador des de la nova icona 🏀: es veurà a pantalla completa, sense barres.</li>
+    </ol>
+    <p class="note">Si fas servir Chrome a l'iPhone i no hi veus l'opció, obre piabalmes.com amb Safari i fes-ho des d'allà.</p>
+    <div class="modal-actions"><button class="btn" data-close>Entesos</button></div>
+  </div>`;
+  document.body.appendChild(el);
+  el.addEventListener('click', (e) => { if (e.target === el || e.target.closest('[data-close]')) el.remove(); });
+}
 
 export function toast(msg, ms = 2200) {
   let el = document.getElementById('toast');

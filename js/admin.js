@@ -1,8 +1,8 @@
 import {
   sb, teamSlug, loadTeam, syncServerClock, serverNow, remainingMs, fmtClock, ordinal, fmtDate, esc, sides,
-  unlockAudio, playSound, keepAwake, goFullscreen, toggleFullscreen, canFullscreen, toast, outcome,
-} from './common.js?v=5';
-import { showFinalEffect } from './effects.js?v=5';
+  unlockAudio, playSound, keepAwake, goFullscreen, toggleFullscreen, canFullscreen, setupFullscreenButton, toast, outcome,
+} from './common.js?v=6';
+import { showFinalEffect } from './effects.js?v=6';
 
 const $ = (id) => document.getElementById(id);
 const PIN_KEY = `mb_pin_${teamSlug}`;
@@ -279,8 +279,7 @@ $('hornBtn').addEventListener('click', () => sound('horn'));
 $('editBtn').addEventListener('click', () => match && matchForm(match));
 $('finishBtn').addEventListener('click', () => finishFlow());
 $('menuBtn').addEventListener('click', () => { if (document.fullscreenElement) document.exitFullscreen().catch(() => {}); goHome(); });
-if (!canFullscreen()) $('fsBtn').classList.add('hidden');
-$('fsBtn').addEventListener('click', toggleFullscreen);
+setupFullscreenButton($('fsBtn'));
 
 async function finishFlow() {
   if (!match) return;

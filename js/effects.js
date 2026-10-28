@@ -1,4 +1,4 @@
-import { esc, outcome } from './common.js?v=5';
+import { esc, outcome } from './common.js?v=6';
 
 const SCHOOL_COLORS = ['#83BB26', '#A6D84B', '#1F3685', '#5076BB', '#FFFFFF'];
 
